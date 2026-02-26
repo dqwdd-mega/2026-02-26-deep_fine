@@ -10,6 +10,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -40,8 +41,15 @@ fun LoginScreen() {
         modifier = Modifier.fillMaxSize()
     ) {
         Text(
-            text = "ExchangeRoute",
+            text = "LoginScreen",
             fontSize = 24.sp
         )
     }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun LoginScreenPreview() {
+    LoginScreen()
 }
