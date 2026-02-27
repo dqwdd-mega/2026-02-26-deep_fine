@@ -43,11 +43,15 @@ fun LoginRoute(
     LoginScreen(
         inputEmail = state.inputEmail,
         isEmailFocused = state.isEmailFocused,
-        onEmailChange = { email ->
-            viewModel.intent(LoginContract.Event.OnEmailChange(email))
+        showEmailState = state.showEmailState,
+        onChangeEmail = { email ->
+            viewModel.intent(LoginContract.Event.OnChangeEmail(email))
         },
-        onEmailFocusChange = { isFocused ->
-            viewModel.intent(LoginContract.Event.OnEmailFocusChange(isFocused))
+        onChangeEmailFocus = { isFocused ->
+            viewModel.intent(LoginContract.Event.OnChangeEmailFocus(isFocused))
+        },
+        onClickLoginButton = {
+            viewModel.intent(LoginContract.Event.OnClickLoginButton)
         }
     )
 }
@@ -56,8 +60,10 @@ fun LoginRoute(
 fun LoginScreen(
     inputEmail: String = "",
     isEmailFocused: Boolean = false,
-    onEmailChange: (String) -> Unit = {},
-    onEmailFocusChange: (Boolean) -> Unit = {},
+    showEmailState: Boolean = false,
+    onChangeEmail: (String) -> Unit = {},
+    onChangeEmailFocus: (Boolean) -> Unit = {},
+    onClickLoginButton: () -> Unit = {},
 ) {
     val focusManager = LocalFocusManager.current
     
@@ -76,11 +82,15 @@ fun LoginScreen(
             LoginTopCard()
             EmailInputComponent(
                 value = inputEmail,
-                onValueChange = onEmailChange,
+                onValueChange = onChangeEmail,
                 isFocused = isEmailFocused,
-                onFocusChange = onEmailFocusChange
+                onFocusChange = onChangeEmailFocus,
+                showEmailState = showEmailState
             )
-            LoginButtonComponent()
+            LoginButtonComponent(
+                isInputEmailEmpty = inputEmail.isEmpty(),
+                onClick = onClickLoginButton
+            )
         }
     }
 }

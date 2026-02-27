@@ -1,6 +1,7 @@
 package com.example.taskdeep.ui.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.taskdeep.R
+import com.example.taskdeep.ui.theme.ColorTokens.Blue_2735AE
 import com.example.taskdeep.ui.theme.ColorTokens.Grey_C2C3CA
 import com.example.taskdeep.ui.theme.ColorTokens.White
 import com.example.taskdeep.ui.theme.Radius.Round12
@@ -24,14 +26,19 @@ import com.example.taskdeep.ui.theme.TypoTokens.weight400size18
 @Composable
 internal fun LoginButtonComponent(
     modifier: Modifier = Modifier,
+    isInputEmailEmpty: Boolean = true,
+    onClick: () -> Unit = {},
 ) {
+    val backgroundColor = if (isInputEmailEmpty) Grey_C2C3CA else Blue_2735AE
+    
     Column(modifier = modifier) {
         Spacer(modifier = Modifier.weight(1f))
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(54.dp)
-                .background(color = Grey_C2C3CA, shape = Round12)
+                .background(color = backgroundColor, shape = Round12)
+                .clickable(enabled = isInputEmailEmpty.not()) { onClick() }
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             contentAlignment = Alignment.Center
         ) {

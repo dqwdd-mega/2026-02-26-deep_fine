@@ -34,6 +34,11 @@ object TypoTokens {
         fontSize = FontSizeTokens.textSize30,
     )
 
+    val weight500size15 = TextStyle(
+        fontWeight = FontWeight.Medium,
+        fontSize = FontSizeTokens.textSize15,
+    )
+
     val weight400size18 = TextStyle(
         fontWeight = FontWeight.Normal,
         fontSize = FontSizeTokens.textSize18,

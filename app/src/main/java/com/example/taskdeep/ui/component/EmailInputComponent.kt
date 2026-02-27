@@ -26,8 +26,10 @@ import com.example.taskdeep.ui.theme.ColorTokens.Blue_2735AE
 import com.example.taskdeep.ui.theme.ColorTokens.Grey_999999
 import com.example.taskdeep.ui.theme.ColorTokens.Grey_DDDDDD
 import com.example.taskdeep.ui.theme.ColorTokens.Red_EC3D2B
+import com.example.taskdeep.ui.theme.ColorTokens.Red_FF5252
 import com.example.taskdeep.ui.theme.TypoTokens.weight400size13_notoSansKr
 import com.example.taskdeep.ui.theme.TypoTokens.weight400size18
+import com.example.taskdeep.ui.theme.TypoTokens.weight500size15
 
 @Composable
 internal fun EmailInputComponent(
@@ -36,11 +38,14 @@ internal fun EmailInputComponent(
     onValueChange: (String) -> Unit = {},
     isFocused: Boolean = false,
     onFocusChange: (Boolean) -> Unit = {},
+    showEmailState: Boolean = false,
 ) {
     val emailPlaceholder = stringResource(R.string.email_placeholder)
     var wasEverFocused by remember { mutableStateOf(false) }
 
     val underlineColor: Color = when {
+        showEmailState && isFocused.not() -> Red_EC3D2B
+        showEmailState && isFocused -> Red_EC3D2B
         isFocused -> Blue_2735AE
         value.isNotEmpty() -> Blue_2735AE
         wasEverFocused && value.isEmpty() -> Red_EC3D2B
@@ -58,7 +63,7 @@ internal fun EmailInputComponent(
         Spacer(modifier = Modifier.height(7.dp))
 
         BasicTextField(
-            modifier = Modifier.onFocusChanged { focusState ->
+            modifier = Modifier.fillMaxWidth().onFocusChanged { focusState ->
                 if (focusState.isFocused) {
                     wasEverFocused = true
                 }
@@ -75,7 +80,6 @@ internal fun EmailInputComponent(
                 Box {
                     if (value.isEmpty()) {
                         Text(
-                            modifier = Modifier.fillMaxWidth(),
                             text = emailPlaceholder,
                             style = weight400size18,
                             color = Grey_999999,
@@ -95,6 +99,18 @@ internal fun EmailInputComponent(
                 .height(1.dp)
                 .background(color = underlineColor)
         )
+
+        Spacer(modifier = Modifier.height(6.dp))
+
+        if (showEmailState) {
+            Text(
+                text = stringResource(R.string.email_format_error),
+                style = weight500size15,
+                color = Red_FF5252,
+                lineHeight = 15.sp,
+                letterSpacing = (-0.29).sp
+            )
+        }
     }
 }
 
