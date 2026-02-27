@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TaskDeep20260226</string>
+    <string name="login_signup">로그인/회원가입</string>
+    <string name="login_description">로그인 또는 회원가입을 위해 이메일을 입력해주세요.</string>
+    <string name="email_label">이메일</string>
+    <string name="email_placeholder">이메일 주소를 입력하세요.</string>
 </resources>

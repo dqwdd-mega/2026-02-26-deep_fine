@@ -34,9 +34,9 @@ object TypoTokens {
         fontSize = FontSizeTokens.textSize30,
     )
 
-    val weight400size13_notoSansKr = notoSansKrTextStyle.copy(
+    val weight400size18 = TextStyle(
         fontWeight = FontWeight.Normal,
-        fontSize = FontSizeTokens.textSize13,
+        fontSize = FontSizeTokens.textSize18,
     )
 
     val weight400size15 = TextStyle(
@@ -44,8 +44,8 @@ object TypoTokens {
         fontSize = FontSizeTokens.textSize15,
     )
 
-    val weight400size18 = TextStyle(
+    val weight400size13_notoSansKr = notoSansKrTextStyle.copy(
         fontWeight = FontWeight.Normal,
-        fontSize = FontSizeTokens.textSize18,
+        fontSize = FontSizeTokens.textSize13,
     )
 }

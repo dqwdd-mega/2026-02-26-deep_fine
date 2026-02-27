@@ -16,6 +16,7 @@ object ColorTokens {
     val Black = Color(0xFF000000)
     val Grey_999999 = Color(0xFF999999)
     val Grey_C2C3CA = Color(0xFFC2C3CA)
+    val Grey_DDDDDD = Color(0xFFDDDDDD)
     val Blue_2735AE = Color(0xFF2735AE)
     val Red_EC3D2B = Color(0xFFEC3D2B)
 }
