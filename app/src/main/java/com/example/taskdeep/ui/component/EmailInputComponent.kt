@@ -46,8 +46,7 @@ internal fun EmailInputComponent(
             singleLine = true,
             textStyle = weight400size18.copy(
                 color = Black,
-                lineHeight = 24.sp,
-                letterSpacing = (-0.15).sp
+                lineHeight = 18.sp,
             ),
             decorationBox = { innerTextField ->
                 Box {

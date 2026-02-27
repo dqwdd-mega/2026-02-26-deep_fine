@@ -36,11 +36,19 @@ fun LoginRoute(
         }
     }
 
-    LoginScreen()
+    LoginScreen(
+        inputEmail = state.inputEmail,
+        onEmailChange = { email ->
+            viewModel.intent(LoginContract.Event.OnEmailChange(email))
+        }
+    )
 }
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(
+    inputEmail: String = "",
+    onEmailChange: (String) -> Unit = {},
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -48,7 +56,10 @@ fun LoginScreen() {
     ) {
         Column {
             LoginTopCard()
-            EmailInputComponent()
+            EmailInputComponent(
+                value = inputEmail,
+                onValueChange = onEmailChange
+            )
             LoginButtonComponent()
         }
     }

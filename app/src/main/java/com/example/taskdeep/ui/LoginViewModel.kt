@@ -13,7 +13,13 @@ class LoginViewModel @Inject constructor(
 
     override suspend fun handleEvent(event: LoginContract.Event) {
         when (event) {
-            else -> {}
+            is LoginContract.Event.OnEmailChange -> {
+                upDateInputEmail(email = event.email)
+            }
         }
+    }
+
+    private fun upDateInputEmail(email: String) {
+        reduce { copy(inputEmail = email) }
     }
 }
