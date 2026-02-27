@@ -16,10 +16,17 @@ class LoginViewModel @Inject constructor(
             is LoginContract.Event.OnEmailChange -> {
                 upDateInputEmail(email = event.email)
             }
+            is LoginContract.Event.OnEmailFocusChange -> {
+                updateEmailFocused(isFocused = event.isFocused)
+            }
         }
     }
 
     private fun upDateInputEmail(email: String) {
         reduce { copy(inputEmail = email) }
+    }
+
+    private fun updateEmailFocused(isFocused: Boolean) {
+        reduce { copy(isEmailFocused = isFocused) }
     }
 }
