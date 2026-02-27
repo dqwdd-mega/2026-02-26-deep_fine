@@ -1,6 +1,5 @@
 package com.example.taskdeep.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -10,6 +9,12 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import com.example.taskdeep.ui.theme.ColorTokens.Pink40
+import com.example.taskdeep.ui.theme.ColorTokens.Pink80
+import com.example.taskdeep.ui.theme.ColorTokens.Purple40
+import com.example.taskdeep.ui.theme.ColorTokens.Purple80
+import com.example.taskdeep.ui.theme.ColorTokens.PurpleGrey40
+import com.example.taskdeep.ui.theme.ColorTokens.PurpleGrey80
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
