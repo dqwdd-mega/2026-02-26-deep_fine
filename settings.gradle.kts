@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "TaskDeep20260226"
 include(":app")
 include(":core:data")
+include(":core:domain")
