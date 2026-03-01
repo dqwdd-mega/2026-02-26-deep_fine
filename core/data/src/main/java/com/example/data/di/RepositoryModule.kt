@@ -1,4 +1,4 @@
-package com.example.taskdeep.di
+package com.example.data.di
 
 import com.example.data.repository.UserRepositoryImpl
 import com.example.domain.repository.UserRepository
