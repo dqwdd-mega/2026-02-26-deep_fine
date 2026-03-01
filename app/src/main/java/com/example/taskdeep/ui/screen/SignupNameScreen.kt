@@ -22,7 +22,7 @@ import com.example.taskdeep.ui.component.TopCardWithBack
 fun SignupNameScreen(
     inputName: String = "",
     isNameFocused: Boolean = false,
-    showNameState: Boolean = false,
+    showNameValidation: Boolean = false,
     onChangeName: (String) -> Unit = {},
     onChangeNameFocus: (Boolean) -> Unit = {},
     onClickLoginButton: () -> Unit = {},
@@ -42,8 +42,8 @@ fun SignupNameScreen(
     ) {
         Column {
             TopCardWithBack(
-                title = stringResource(R.string.login_signup),
-                description = stringResource(R.string.login_description),
+                title = "이름을 입력해주세요",
+                description = "내 정보에서 변경할 수 있어요.",
                 progress = 1f / 3f,
                 onBackClick = onClickBackButton
             )
@@ -54,7 +54,7 @@ fun SignupNameScreen(
                 onValueChange = onChangeName,
                 isFocused = isNameFocused,
                 onFocusChange = onChangeNameFocus,
-                showNameState = showNameState
+                showNameValidation = showNameValidation
             )
             
             LoginButtonComponent(

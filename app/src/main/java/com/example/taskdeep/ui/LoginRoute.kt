@@ -1,6 +1,7 @@
 package com.example.taskdeep.ui
 
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -35,14 +36,21 @@ fun LoginRoute(
 
     when (state.currentStep) {
         UserState.LOGIN_EMAIL, UserState.LOGIN_PASSWORD -> {
+            if (state.currentStep == UserState.LOGIN_PASSWORD) {
+                BackHandler {
+                    viewModel.intent(LoginContract.Event.OnClickBackButton)
+                }
+            }
+            
             LoginScreen(
                 showPasswordField = state.currentStep == UserState.LOGIN_PASSWORD,
                 inputEmail = state.loginScreenState.inputEmail,
                 inputPassword = state.loginScreenState.inputPassword,
                 isEmailFocused = state.loginScreenState.isEmailFocused,
                 isPasswordFocused = state.loginScreenState.isPasswordFocused,
-                showEmailState = state.loginScreenState.showEmailState,
-                showPasswordState = state.loginScreenState.showPasswordState,
+                isEmailVerified = state.loginScreenState.isEmailVerified,
+                showEmailValidation = state.loginScreenState.showEmailValidation,
+                showPasswordValidation = state.loginScreenState.showPasswordValidation,
                 onChangeEmail = { email ->
                     viewModel.intent(LoginContract.Event.OnChangeEmail(email))
                 },
@@ -65,7 +73,7 @@ fun LoginRoute(
             LoginSignupScreen(
                 inputEmail = state.loginScreenState.inputEmail,
                 isEmailFocused = state.loginScreenState.isEmailFocused,
-                showEmailState = state.loginScreenState.showEmailState,
+                showEmailValidation = state.loginScreenState.showEmailValidation,
                 onChangeEmail = { email ->
                     viewModel.intent(LoginContract.Event.OnChangeEmail(email))
                 },
@@ -74,6 +82,9 @@ fun LoginRoute(
                 },
                 onClickLoginButton = {
                     viewModel.intent(LoginContract.Event.OnClickLoginButton)
+                },
+                onClickBackButton = {
+                    viewModel.intent(LoginContract.Event.OnClickBackButton)
                 }
             )
         }
@@ -82,7 +93,7 @@ fun LoginRoute(
             SignupNameScreen(
                 inputName = state.signupNameState.inputName,
                 isNameFocused = state.signupNameState.isNameFocused,
-                showNameState = state.signupNameState.showNameState,
+                showNameValidation = state.signupNameState.showNameValidation,
                 onChangeName = { name ->
                     viewModel.intent(LoginContract.Event.OnChangeName(name))
                 },
@@ -102,7 +113,7 @@ fun LoginRoute(
             SignupPasswordScreen(
                 inputPassword = state.signupPasswordState.inputPassword,
                 isPasswordFocused = state.signupPasswordState.isPasswordFocused,
-                showPasswordState = state.signupPasswordState.showPasswordState,
+                showPasswordValidation = state.signupPasswordState.showPasswordValidation,
                 onChangePassword = { password ->
                     viewModel.intent(LoginContract.Event.OnChangePassword(password))
                 },

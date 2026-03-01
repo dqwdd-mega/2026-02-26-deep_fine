@@ -1,11 +1,14 @@
 package com.example.taskdeep.ui.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -19,12 +22,31 @@ import com.example.taskdeep.ui.theme.TypoTokens.weight700size30
 @Composable
 internal fun LoginTopCard(
     modifier: Modifier = Modifier,
+    isSignupMode: Boolean = false,
+    showBackButton: Boolean = false,
+    onBackClick: () -> Unit = {},
 ) {
     Column(modifier = modifier) {
-        Spacer(modifier = Modifier.height(116.dp))
+        if (showBackButton) {
+            Spacer(modifier = Modifier.height(24.dp))
+            
+            Icon(
+                modifier = Modifier
+                    .clickable { onBackClick() },
+                painter = painterResource(id = R.drawable.ic_arrow_back),
+                contentDescription = "뒤로가기",
+                tint = Black,
+            )
+            
+            Spacer(modifier = Modifier.height(68.dp))
+        } else {
+            Spacer(modifier = Modifier.height(116.dp))
+        }
 
         Text(
-            text = stringResource(R.string.login_signup),
+            text = stringResource(
+                if (isSignupMode) R.string.signup else R.string.login_signup
+            ),
             style = weight700size30,
             color = Black,
             lineHeight = 30.sp,
@@ -33,13 +55,15 @@ internal fun LoginTopCard(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        Text(
-            text = stringResource(R.string.login_description),
-            style = weight400size15,
-            color = Grey_999999,
-            lineHeight = 24.sp,
-            letterSpacing = (-0.15).sp
-        )
+        if (!isSignupMode) {
+            Text(
+                text = stringResource(R.string.login_description),
+                style = weight400size15,
+                color = Grey_999999,
+                lineHeight = 24.sp,
+                letterSpacing = (-0.15).sp
+            )
+        }
 
         Spacer(modifier = Modifier.height(40.dp))
     }

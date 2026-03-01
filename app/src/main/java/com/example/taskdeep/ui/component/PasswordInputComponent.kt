@@ -13,7 +13,7 @@ internal fun PasswordInputComponent(
     onValueChange: (String) -> Unit = {},
     isFocused: Boolean = false,
     onFocusChange: (Boolean) -> Unit = {},
-    showPasswordState: Boolean = false,
+    showPasswordValidation: Boolean = false,
 ) {
     TextInputFieldComponent(
         modifier = modifier,
@@ -23,8 +23,9 @@ internal fun PasswordInputComponent(
         onValueChange = onValueChange,
         isFocused = isFocused,
         onFocusChange = onFocusChange,
-        showErrorState = showPasswordState,
-        errorMessage = stringResource(R.string.password_format_error),
+        showValidationState = showPasswordValidation,
+        isValidationSuccess = false,
+        validationMessage = stringResource(R.string.password_format_error),
         isPassword = true
     )
 }

@@ -16,22 +16,23 @@ object LoginContract {
         data class LoginScreenState(
             val inputEmail: String = "",
             val isEmailFocused: Boolean = false,
-            val showEmailState: Boolean = false,
+            val isEmailVerified: Boolean = false,
+            val showEmailValidation: Boolean = false,
             val inputPassword: String = "",
             val isPasswordFocused: Boolean = false,
-            val showPasswordState: Boolean = false
+            val showPasswordValidation: Boolean = false
         )
 
         data class SignupNameState(
             val inputName: String = "",
             val isNameFocused: Boolean = false,
-            val showNameState: Boolean = false
+            val showNameValidation: Boolean = false
         )
 
         data class SignupPasswordState(
             val inputPassword: String = "",
             val isPasswordFocused: Boolean = false,
-            val showPasswordState: Boolean = false
+            val showPasswordValidation: Boolean = false
         )
     }
 

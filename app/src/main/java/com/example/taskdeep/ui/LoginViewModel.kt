@@ -70,21 +70,22 @@ class LoginViewModel @Inject constructor(
                     loginScreenState = loginScreenState.copy(
                         inputEmail = email,
                         inputPassword = "",
-                        showPasswordState = false
+                        isEmailVerified = false,
+                        showPasswordValidation = false
                     )
                 )
             }
         } else {
-            updateLoginScreenState { copy(inputEmail = email) }
+            updateLoginScreenState { copy(inputEmail = email, isEmailVerified = false) }
         }
 
-        val showEmailState = state.value.loginScreenState.showEmailState
-        if (showEmailState) {
+        val showEmailValidation = state.value.loginScreenState.showEmailValidation
+        if (showEmailValidation) {
             val hasNoTextBeforeAt = email.substringBefore("@", "").isEmpty()
             val shouldClearError = hasNoTextBeforeAt || isValidEmail(email)
 
             if (shouldClearError) {
-                updateLoginScreenState { copy(showEmailState = false) }
+                updateLoginScreenState { copy(showEmailValidation = false) }
             }
         }
     }
@@ -95,16 +96,16 @@ class LoginViewModel @Inject constructor(
         if (currentState == UserState.LOGIN_PASSWORD) {
             updateLoginScreenState { copy(inputPassword = password) }
             
-            val showPasswordState = state.value.loginScreenState.showPasswordState
-            if (showPasswordState) {
-                updateLoginScreenState { copy(showPasswordState = false) }
+            val showPasswordValidation = state.value.loginScreenState.showPasswordValidation
+            if (showPasswordValidation) {
+                updateLoginScreenState { copy(showPasswordValidation = false) }
             }
         } else if (currentState == UserState.SIGNUP_PASSWORD) {
             updateSignupPasswordState { copy(inputPassword = password) }
             
-            val showPasswordState = state.value.signupPasswordState.showPasswordState
-            if (showPasswordState) {
-                updateSignupPasswordState { copy(showPasswordState = false) }
+            val showPasswordValidation = state.value.signupPasswordState.showPasswordValidation
+            if (showPasswordValidation) {
+                updateSignupPasswordState { copy(showPasswordValidation = false) }
             }
         }
     }
@@ -112,23 +113,28 @@ class LoginViewModel @Inject constructor(
     private fun handleOnNameChange(name: String) {
         updateSignupNameState { copy(inputName = name) }
         
-        val showNameState = state.value.signupNameState.showNameState
-        if (showNameState) {
-            updateSignupNameState { copy(showNameState = false) }
+        val showNameValidation = state.value.signupNameState.showNameValidation
+        if (showNameValidation) {
+            updateSignupNameState { copy(showNameValidation = false) }
         }
     }
 
     private fun updateEmailFocused(isFocused: Boolean) {
         updateLoginScreenState { copy(isEmailFocused = isFocused) }
 
-        if (isFocused || state.value.loginScreenState.showEmailState.not()) return
+        if (isFocused || state.value.loginScreenState.showEmailValidation.not()) return
+
+        val currentState = state.value.currentStep
+        if (currentState == UserState.LOGIN_PASSWORD && state.value.loginScreenState.isEmailVerified) {
+            return
+        }
 
         val currentEmail = state.value.loginScreenState.inputEmail
         val beforeAtPart = currentEmail.substringBefore("@", "")
         val shouldClearError = beforeAtPart.isEmpty() || isValidEmail(currentEmail)
 
         if (shouldClearError) {
-            updateLoginScreenState { copy(showEmailState = false) }
+            updateLoginScreenState { copy(showEmailValidation = false) }
         }
     }
 
@@ -164,12 +170,13 @@ class LoginViewModel @Inject constructor(
         val isEmailInvalid = isValidEmail(inputEmail).not()
 
         if (isEmailInvalid) {
-            updateLoginScreenState { copy(showEmailState = true) }
+            updateLoginScreenState { copy(showEmailValidation = true, isEmailVerified = false) }
             return
         }
 
         when (validateEmailUseCase(inputEmail)) {
             is EmailValidationResult.Found -> {
+                updateLoginScreenState { copy(isEmailVerified = true, showEmailValidation = true) }
                 updateCurrentStep(UserState.LOGIN_PASSWORD)
             }
             is EmailValidationResult.NotFound -> {
@@ -205,13 +212,22 @@ class LoginViewModel @Inject constructor(
     private fun handleSignupNameState() {
         val inputName = state.value.signupNameState.inputName
         if (inputName.isEmpty()) {
-            updateSignupNameState { copy(showNameState = true) }
+            updateSignupNameState { copy(showNameValidation = true) }
             return
         }
         updateCurrentStep(UserState.SIGNUP_PASSWORD)
     }
 
-    private suspend fun handleSignupPasswordState() {
+    private fun handleSignupPasswordState() {
+        val inputPassword = state.value.signupPasswordState.inputPassword
+        if (inputPassword.isEmpty()) {
+            updateSignupPasswordState { copy(showPasswordValidation = true) }
+            return
+        }
+        updateCurrentStep(UserState.SIGNUP_COMPLETE)
+    }
+
+    private suspend fun handleSignupCompleteState() {
         val inputEmail = state.value.loginScreenState.inputEmail
         val inputPassword = state.value.signupPasswordState.inputPassword
         val inputName = state.value.signupNameState.inputName
@@ -219,20 +235,31 @@ class LoginViewModel @Inject constructor(
         val result = registerUserUseCase(inputEmail, inputPassword, inputName)
         
         result.onSuccess {
-            updateCurrentStep(UserState.SIGNUP_COMPLETE)
+            resetAllStates()
         }.onFailure {
             postSideEffect(LoginContract.SideEffect.ShowToast("올바른 형식의 비밀번호를 입력해주세요"))
         }
-    }
-
-    private fun handleSignupCompleteState() {
-        resetAllStates()
     }
 
     private fun handleBackButtonClick() {
         val currentState = state.value.currentStep
         
         when (currentState) {
+            UserState.LOGIN_PASSWORD -> {
+                reduce {
+                    copy(
+                        currentStep = UserState.LOGIN_EMAIL,
+                        loginScreenState = loginScreenState.copy(
+                            inputPassword = "",
+                            isPasswordFocused = false,
+                            showPasswordValidation = false
+                        )
+                    )
+                }
+            }
+            UserState.LOGIN_SIGHUP -> {
+                updateCurrentStep(UserState.LOGIN_EMAIL)
+            }
             UserState.SIGHUP_NAME -> {
                 updateCurrentStep(UserState.LOGIN_SIGHUP)
             }
@@ -240,7 +267,7 @@ class LoginViewModel @Inject constructor(
                 updateCurrentStep(UserState.SIGHUP_NAME)
             }
             UserState.SIGNUP_COMPLETE -> {
-                resetAllStates()
+                updateCurrentStep(UserState.SIGNUP_PASSWORD)
             }
             else -> {}
         }

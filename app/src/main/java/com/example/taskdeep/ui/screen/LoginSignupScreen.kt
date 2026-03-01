@@ -21,24 +21,24 @@ import com.example.taskdeep.R
 import com.example.taskdeep.ui.component.EmailInputComponent
 import com.example.taskdeep.ui.component.LoginButtonComponent
 import com.example.taskdeep.ui.component.LoginTopCard
-import com.example.taskdeep.ui.theme.ColorTokens.Red_FF5252
+import com.example.taskdeep.ui.theme.ColorTokens.Blue_2735AE
 import com.example.taskdeep.ui.theme.TypoTokens.weight500size15
 
 @Composable
 fun LoginSignupScreen(
     inputEmail: String = "",
     isEmailFocused: Boolean = false,
-    showEmailState: Boolean = false,
+    showEmailValidation: Boolean = false,
     onChangeEmail: (String) -> Unit = {},
     onChangeEmailFocus: (Boolean) -> Unit = {},
     onClickLoginButton: () -> Unit = {},
+    onClickBackButton: () -> Unit = {},
 ) {
     val focusManager = LocalFocusManager.current
     
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 24.dp)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null
@@ -46,14 +46,21 @@ fun LoginSignupScreen(
                 focusManager.clearFocus()
             }
     ) {
-        Column {
-            LoginTopCard()
+        Column(
+            modifier = Modifier.padding(horizontal = 24.dp)
+        ) {
+            LoginTopCard(
+                isSignupMode = true,
+                showBackButton = false,
+                onBackClick = onClickBackButton
+            )
             EmailInputComponent(
                 value = inputEmail,
                 onValueChange = onChangeEmail,
                 isFocused = isEmailFocused,
                 onFocusChange = onChangeEmailFocus,
-                showEmailState = showEmailState
+                isEmailVerified = false,
+                showEmailValidation = showEmailValidation
             )
             
             Spacer(modifier = Modifier.height(6.dp))
@@ -61,7 +68,7 @@ fun LoginSignupScreen(
             Text(
                 text = stringResource(R.string.no_login_info),
                 style = weight500size15,
-                color = Red_FF5252,
+                color = Blue_2735AE,
                 lineHeight = 15.sp,
                 letterSpacing = (-0.29).sp
             )

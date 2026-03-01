@@ -11,7 +11,8 @@ internal fun EmailInputComponent(
     modifier: Modifier = Modifier,
     value: String = "",
     isFocused: Boolean = false,
-    showEmailState: Boolean = false,
+    isEmailVerified: Boolean = false,
+    showEmailValidation: Boolean = false,
     onValueChange: (String) -> Unit = {},
     onFocusChange: (Boolean) -> Unit = {},
 ) {
@@ -23,8 +24,13 @@ internal fun EmailInputComponent(
         onValueChange = onValueChange,
         isFocused = isFocused,
         onFocusChange = onFocusChange,
-        showErrorState = showEmailState,
-        errorMessage = stringResource(R.string.email_format_error),
+        showValidationState = showEmailValidation,
+        isValidationSuccess = isEmailVerified,
+        validationMessage = if (isEmailVerified) {
+            "이메일이 확인되었습니다. :)"
+        } else {
+            stringResource(R.string.email_format_error)
+        },
         isPassword = false
     )
 }

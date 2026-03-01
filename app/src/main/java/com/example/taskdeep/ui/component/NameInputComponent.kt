@@ -13,7 +13,7 @@ internal fun NameInputComponent(
     onValueChange: (String) -> Unit = {},
     isFocused: Boolean = false,
     onFocusChange: (Boolean) -> Unit = {},
-    showNameState: Boolean = false,
+    showNameValidation: Boolean = false,
 ) {
     TextInputFieldComponent(
         modifier = modifier,
@@ -23,8 +23,9 @@ internal fun NameInputComponent(
         onValueChange = onValueChange,
         isFocused = isFocused,
         onFocusChange = onFocusChange,
-        showErrorState = showNameState,
-        errorMessage = stringResource(R.string.name_format_error),
+        showValidationState = showNameValidation,
+        isValidationSuccess = false,
+        validationMessage = stringResource(R.string.name_format_error),
         isPassword = false
     )
 }

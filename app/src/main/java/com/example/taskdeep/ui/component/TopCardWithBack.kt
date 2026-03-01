@@ -1,5 +1,6 @@
 package com.example.taskdeep.ui.component
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -16,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,6 +25,7 @@ import com.example.taskdeep.R
 import com.example.taskdeep.ui.theme.ColorTokens.Black
 import com.example.taskdeep.ui.theme.ColorTokens.Blue_2735AE
 import com.example.taskdeep.ui.theme.ColorTokens.Grey_999999
+import com.example.taskdeep.ui.theme.ColorTokens.Grey_EEEEEE
 import com.example.taskdeep.ui.theme.TypoTokens.weight400size15
 import com.example.taskdeep.ui.theme.TypoTokens.weight700size30
 
@@ -30,10 +33,13 @@ import com.example.taskdeep.ui.theme.TypoTokens.weight700size30
 internal fun TopCardWithBack(
     modifier: Modifier = Modifier,
     title: String = "",
+    titleAnnotated: AnnotatedString? = null,
     description: String = "",
     progress: Float = 1f,
     onBackClick: () -> Unit = {},
 ) {
+    BackHandler(onBack = onBackClick)
+    
     Column(modifier = modifier) {
         Spacer(modifier = Modifier.height(24.dp))
 
@@ -50,22 +56,46 @@ internal fun TopCardWithBack(
 
         Box(
             modifier = Modifier
-                .fillMaxWidth(progress)
+                .fillMaxWidth()
                 .height(5.dp)
-                .background(color = Blue_2735AE)
-        )
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(5.dp)
+                    .background(color = Grey_EEEEEE)
+            )
+            
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(progress)
+                    .height(5.dp)
+                    .background(color = Blue_2735AE)
+            )
+        }
 
         Spacer(modifier = Modifier.height(36.dp))
 
-        Text(
-            modifier = Modifier
-                .padding(horizontal = 24.dp),
-            text = title,
-            style = weight700size30,
-            color = Black,
-            lineHeight = 30.sp,
-            letterSpacing = (-0.3).sp
-        )
+        if (titleAnnotated != null) {
+            Text(
+                modifier = Modifier
+                    .padding(horizontal = 24.dp),
+                text = titleAnnotated,
+                style = weight700size30,
+                lineHeight = 30.sp,
+                letterSpacing = (-0.3).sp
+            )
+        } else {
+            Text(
+                modifier = Modifier
+                    .padding(horizontal = 24.dp),
+                text = title,
+                style = weight700size30,
+                color = Black,
+                lineHeight = 30.sp,
+                letterSpacing = (-0.3).sp
+            )
+        }
 
         Spacer(modifier = Modifier.height(10.dp))
 

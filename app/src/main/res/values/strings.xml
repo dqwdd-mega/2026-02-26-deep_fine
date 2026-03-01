@@ -3,6 +3,7 @@
     
     <!-- 버튼 텍스트 -->
     <string name="login_signup">로그인/회원가입</string>
+    <string name="signup">회원가입</string>
     <string name="login">로그인</string>
     <string name="next">다음</string>
     <string name="signup_complete">가입완료</string>

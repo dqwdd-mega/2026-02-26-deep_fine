@@ -22,7 +22,7 @@ import com.example.taskdeep.ui.component.TopCardWithBack
 fun SignupPasswordScreen(
     inputPassword: String = "",
     isPasswordFocused: Boolean = false,
-    showPasswordState: Boolean = false,
+    showPasswordValidation: Boolean = false,
     onChangePassword: (String) -> Unit = {},
     onChangePasswordFocus: (Boolean) -> Unit = {},
     onClickLoginButton: () -> Unit = {},
@@ -42,8 +42,8 @@ fun SignupPasswordScreen(
     ) {
         Column {
             TopCardWithBack(
-                title = stringResource(R.string.login_signup),
-                description = stringResource(R.string.login_description),
+                title = "비밀번호를 입력해주세요",
+                description = "최소 8자리 이상\n영어 대문자, 소문자, 숫자, 특수 문자 3가지 이상 조합",
                 progress = 2f / 3f,
                 onBackClick = onClickBackButton
             )
@@ -54,7 +54,7 @@ fun SignupPasswordScreen(
                 onValueChange = onChangePassword,
                 isFocused = isPasswordFocused,
                 onFocusChange = onChangePasswordFocus,
-                showPasswordState = showPasswordState
+                showPasswordValidation = showPasswordValidation
             )
             
             LoginButtonComponent(

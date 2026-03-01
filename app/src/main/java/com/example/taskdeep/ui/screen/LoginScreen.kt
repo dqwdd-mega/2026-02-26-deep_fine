@@ -28,8 +28,9 @@ fun LoginScreen(
     inputPassword: String = "",
     isEmailFocused: Boolean = false,
     isPasswordFocused: Boolean = false,
-    showEmailState: Boolean = false,
-    showPasswordState: Boolean = false,
+    isEmailVerified: Boolean = false,
+    showEmailValidation: Boolean = false,
+    showPasswordValidation: Boolean = false,
     onChangeEmail: (String) -> Unit = {},
     onChangePassword: (String) -> Unit = {},
     onChangeEmailFocus: (Boolean) -> Unit = {},
@@ -68,18 +69,19 @@ fun LoginScreen(
                 onValueChange = onChangeEmail,
                 isFocused = isEmailFocused,
                 onFocusChange = onChangeEmailFocus,
-                showEmailState = showEmailState
+                isEmailVerified = isEmailVerified,
+                showEmailValidation = showEmailValidation
             )
             
             if (showPasswordField) {
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(24.dp))
                 
                 PasswordInputComponent(
                     value = inputPassword,
                     onValueChange = onChangePassword,
                     isFocused = isPasswordFocused,
                     onFocusChange = onChangePasswordFocus,
-                    showPasswordState = showPasswordState
+                    showPasswordValidation = showPasswordValidation
                 )
             }
             

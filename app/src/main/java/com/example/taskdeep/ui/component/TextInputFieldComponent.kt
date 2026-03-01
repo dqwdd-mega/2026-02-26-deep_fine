@@ -40,15 +40,17 @@ internal fun TextInputFieldComponent(
     onValueChange: (String) -> Unit = {},
     isFocused: Boolean = false,
     onFocusChange: (Boolean) -> Unit = {},
-    showErrorState: Boolean = false,
-    errorMessage: String = "이메일 형식이 올바르지 않습니다.",
+    showValidationState: Boolean = false,
+    isValidationSuccess: Boolean = false,
+    validationMessage: String = "이메일 형식이 올바르지 않습니다.",
     isPassword: Boolean = false,
 ) {
     var wasEverFocused by remember { mutableStateOf(false) }
 
     val underlineColor: Color = when {
-        showErrorState && isFocused.not() -> Red_EC3D2B
-        showErrorState && isFocused -> Red_EC3D2B
+        showValidationState && isValidationSuccess -> Blue_2735AE
+        showValidationState && isFocused.not() -> Red_EC3D2B
+        showValidationState && isFocused -> Red_EC3D2B
         isFocused -> Blue_2735AE
         value.isNotEmpty() -> Blue_2735AE
         wasEverFocused && value.isEmpty() -> Red_EC3D2B
@@ -106,11 +108,11 @@ internal fun TextInputFieldComponent(
 
         Spacer(modifier = Modifier.height(6.dp))
 
-        if (showErrorState) {
+        if (showValidationState) {
             Text(
-                text = errorMessage,
+                text = validationMessage,
                 style = weight500size15,
-                color = Red_FF5252,
+                color = if (isValidationSuccess) Blue_2735AE else Red_FF5252,
                 lineHeight = 15.sp,
                 letterSpacing = (-0.29).sp
             )
@@ -126,8 +128,8 @@ fun TextInputFieldComponentPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun TextInputFieldComponentPreview_ShowErrorState() {
+fun TextInputFieldComponentPreview_ShowValidationState() {
     TextInputFieldComponent(
-        showErrorState = true
+        showValidationState = true
     )
 }
