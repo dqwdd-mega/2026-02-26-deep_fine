@@ -259,7 +259,13 @@ class LoginViewModel @Inject constructor(
                 }
             }
             UserState.LOGIN_SIGHUP -> {
-                updateCurrentStep(UserState.LOGIN_EMAIL)
+                reduce {
+                    copy(
+                        currentStep = UserState.LOGIN_EMAIL,
+                        signupNameState = LoginContract.LoginState.SignupNameState(),
+                        signupPasswordState = LoginContract.LoginState.SignupPasswordState()
+                    )
+                }
             }
             UserState.SIGHUP_NAME -> {
                 updateCurrentStep(UserState.LOGIN_SIGHUP)
