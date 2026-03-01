@@ -11,7 +11,7 @@ class ValidateEmailUseCase @Inject constructor(
         return try {
             val user = userRepository.getUserByEmail(email)
             if (user != null) {
-                EmailValidationResult.Found(user)
+                EmailValidationResult.Success(user)
             } else {
                 EmailValidationResult.NotFound
             }

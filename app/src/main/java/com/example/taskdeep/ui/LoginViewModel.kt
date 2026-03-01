@@ -175,7 +175,7 @@ class LoginViewModel @Inject constructor(
         }
 
         when (validateEmailUseCase(inputEmail)) {
-            is EmailValidationResult.Found -> {
+            is EmailValidationResult.Success -> {
                 updateLoginScreenState { copy(isEmailVerified = true, showEmailValidation = true) }
                 updateCurrentStep(UserState.LOGIN_PASSWORD)
             }
