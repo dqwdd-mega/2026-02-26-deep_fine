@@ -1,4 +1,4 @@
-package com.example.taskdeep.domain.model
+package com.example.domain.model
 
 data class User(
     val email: String,

@@ -1,7 +1,7 @@
-package com.example.taskdeep.domain.usecase
+package com.example.domain.usecase
 
-import com.example.taskdeep.domain.model.EmailValidationResult
-import com.example.taskdeep.domain.repository.UserRepository
+import com.example.domain.model.EmailValidationResult
+import com.example.domain.repository.UserRepository
 import javax.inject.Inject
 
 class ValidateEmailUseCase @Inject constructor(

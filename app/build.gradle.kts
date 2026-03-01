@@ -58,6 +58,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    implementation(project(":core:domain"))
+    implementation(project(":core:data"))
+
     // hilt
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)

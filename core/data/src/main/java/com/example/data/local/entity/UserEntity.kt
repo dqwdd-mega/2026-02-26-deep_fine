@@ -1,8 +1,8 @@
-package com.example.taskdeep.data.local.entity
+package com.example.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.taskdeep.domain.model.User
+import com.example.domain.model.User
 
 @Entity(tableName = "users")
 data class UserEntity(

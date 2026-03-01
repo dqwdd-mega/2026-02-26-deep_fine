@@ -1,10 +1,10 @@
-package com.example.taskdeep.data.local.dao
+package com.example.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.taskdeep.data.local.entity.UserEntity
+import com.example.data.local.entity.UserEntity
 
 @Dao
 interface UserDao {

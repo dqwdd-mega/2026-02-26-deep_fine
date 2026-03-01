@@ -1,4 +1,4 @@
-package com.example.taskdeep.domain.model.exception
+package com.example.domain.model.exception
 
 sealed class AuthException(
     override val message: String,

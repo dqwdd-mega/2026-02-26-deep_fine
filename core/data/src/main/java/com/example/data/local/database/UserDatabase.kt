@@ -1,9 +1,9 @@
-package com.example.taskdeep.data.local.database
+package com.example.data.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.taskdeep.data.local.dao.UserDao
-import com.example.taskdeep.data.local.entity.UserEntity
+import com.example.data.local.dao.UserDao
+import com.example.data.local.entity.UserEntity
 
 @Database(
     entities = [UserEntity::class],

@@ -1,8 +1,8 @@
-package com.example.taskdeep.data.local.datasource
+package com.example.data.local.datasource
 
-import com.example.taskdeep.data.local.dao.UserDao
-import com.example.taskdeep.data.local.entity.UserEntity
-import com.example.taskdeep.domain.model.User
+import com.example.data.local.dao.UserDao
+import com.example.data.local.entity.UserEntity
+import com.example.domain.model.User
 import javax.inject.Inject
 
 class UserLocalDataSourceImpl @Inject constructor(

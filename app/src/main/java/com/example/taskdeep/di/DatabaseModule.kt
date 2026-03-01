@@ -2,8 +2,8 @@ package com.example.taskdeep.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.taskdeep.data.local.dao.UserDao
-import com.example.taskdeep.data.local.database.UserDatabase
+import com.example.data.local.dao.UserDao
+import com.example.data.local.database.UserDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

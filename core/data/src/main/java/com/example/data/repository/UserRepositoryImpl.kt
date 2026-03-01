@@ -1,10 +1,10 @@
-package com.example.taskdeep.data.repository
+package com.example.data.repository
 
-import com.example.taskdeep.data.local.datasource.UserLocalDataSource
-import com.example.taskdeep.domain.model.User
-import com.example.taskdeep.domain.model.exception.AuthException
-import com.example.taskdeep.domain.model.exception.DatabaseException
-import com.example.taskdeep.domain.repository.UserRepository
+import com.example.data.local.datasource.UserLocalDataSource
+import com.example.domain.model.User
+import com.example.domain.model.exception.AuthException
+import com.example.domain.model.exception.DatabaseException
+import com.example.domain.repository.UserRepository
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(

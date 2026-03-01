@@ -1,6 +1,6 @@
-package com.example.taskdeep.domain.repository
+package com.example.domain.repository
 
-import com.example.taskdeep.domain.model.User
+import com.example.domain.model.User
 
 interface UserRepository {
     suspend fun registerUser(user: User)

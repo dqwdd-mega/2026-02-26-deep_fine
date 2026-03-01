@@ -1,6 +1,6 @@
-package com.example.taskdeep.data.local.datasource
+package com.example.data.local.datasource
 
-import com.example.taskdeep.domain.model.User
+import com.example.domain.model.User
 
 interface UserLocalDataSource {
     suspend fun getUserByEmail(email: String): User?

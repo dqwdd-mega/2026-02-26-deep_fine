@@ -1,4 +1,4 @@
-package com.example.taskdeep.domain.model
+package com.example.domain.model
 
 sealed class PasswordValidationResult {
     data class Success(val user: User) : PasswordValidationResult()

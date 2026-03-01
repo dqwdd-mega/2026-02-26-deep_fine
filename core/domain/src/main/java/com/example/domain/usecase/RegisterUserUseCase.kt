@@ -1,8 +1,8 @@
-package com.example.taskdeep.domain.usecase
+package com.example.domain.usecase
 
-import com.example.taskdeep.domain.model.User
-import com.example.taskdeep.domain.model.exception.AuthException
-import com.example.taskdeep.domain.repository.UserRepository
+import com.example.domain.model.User
+import com.example.domain.model.exception.AuthException
+import com.example.domain.repository.UserRepository
 import javax.inject.Inject
 
 /**
@@ -17,12 +17,10 @@ class RegisterUserUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(email: String, password: String, name: String): Result<Unit> {
         return runCatching {
-            // 비밀번호 최소 길이 검증
             if (isInvalidPasswordLength(password)) {
                 throw AuthException.InvalidPasswordFormatException()
             }
 
-            // 비밀번호 조합 검증
             if (isInvalidPassword(password)) {
                 throw AuthException.InvalidPasswordFormatException()
             }
@@ -32,17 +30,10 @@ class RegisterUserUseCase @Inject constructor(
         }
     }
 
-
-    /**
-     * 비밀번호 길이가 유효하지 않은지 검증 (8자 미만)
-     */
     private fun isInvalidPasswordLength(password: String): Boolean {
         return password.length < 8
     }
 
-    /**
-     * 비밀번호 조합이 유효하지 않은지 검증 (대문자/소문자/숫자/특수문자 중 3가지 미만)
-     */
     private fun isInvalidPassword(password: String): Boolean {
         val hasUpperCase = password.any { it.isUpperCase() }
         val hasLowerCase = password.any { it.isLowerCase() }

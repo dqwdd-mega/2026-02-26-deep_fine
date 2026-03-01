@@ -1,7 +1,7 @@
 package com.example.taskdeep.di
 
-import com.example.taskdeep.data.local.datasource.UserLocalDataSource
-import com.example.taskdeep.data.local.datasource.UserLocalDataSourceImpl
+import com.example.data.local.datasource.UserLocalDataSource
+import com.example.data.local.datasource.UserLocalDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

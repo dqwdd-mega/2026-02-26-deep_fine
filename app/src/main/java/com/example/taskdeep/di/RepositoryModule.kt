@@ -1,7 +1,7 @@
 package com.example.taskdeep.di
 
-import com.example.taskdeep.data.repository.UserRepositoryImpl
-import com.example.taskdeep.domain.repository.UserRepository
+import com.example.data.repository.UserRepositoryImpl
+import com.example.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
