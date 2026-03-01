@@ -7,30 +7,30 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.taskdeep.R
 
 @Composable
-internal fun EmailInputComponent(
+internal fun PasswordInputComponent(
     modifier: Modifier = Modifier,
     value: String = "",
-    isFocused: Boolean = false,
-    showEmailState: Boolean = false,
     onValueChange: (String) -> Unit = {},
+    isFocused: Boolean = false,
     onFocusChange: (Boolean) -> Unit = {},
+    showPasswordState: Boolean = false,
 ) {
     TextInputFieldComponent(
         modifier = modifier,
-        label = stringResource(R.string.email_label),
-        placeholder = stringResource(R.string.email_placeholder),
+        label = stringResource(R.string.password_label),
+        placeholder = stringResource(R.string.password_placeholder),
         value = value,
         onValueChange = onValueChange,
         isFocused = isFocused,
         onFocusChange = onFocusChange,
-        showErrorState = showEmailState,
-        errorMessage = stringResource(R.string.email_format_error),
-        isPassword = false
+        showErrorState = showPasswordState,
+        errorMessage = stringResource(R.string.password_format_error),
+        isPassword = true
     )
 }
 
 @Preview(showBackground = true)
 @Composable
-fun EmailInputComponentPreview() {
-    EmailInputComponent()
+fun PasswordInputComponentPreview() {
+    PasswordInputComponent()
 }

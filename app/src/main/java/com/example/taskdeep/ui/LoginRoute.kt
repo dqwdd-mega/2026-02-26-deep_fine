@@ -1,26 +1,19 @@
 package com.example.taskdeep.ui
 
 import android.widget.Toast
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.taskdeep.ui.component.EmailInputComponent
-import com.example.taskdeep.ui.component.LoginButtonComponent
-import com.example.taskdeep.ui.component.LoginTopCard
+import com.example.taskdeep.ui.model.UserState
+import com.example.taskdeep.ui.screen.LoginScreen
+import com.example.taskdeep.ui.screen.LoginSignupScreen
+import com.example.taskdeep.ui.screen.SignupCompleteScreen
+import com.example.taskdeep.ui.screen.SignupNameScreen
+import com.example.taskdeep.ui.screen.SignupPasswordScreen
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -40,64 +33,106 @@ fun LoginRoute(
         }
     }
 
-    LoginScreen(
-        inputEmail = state.inputEmail,
-        isEmailFocused = state.isEmailFocused,
-        showEmailState = state.showEmailState,
-        onChangeEmail = { email ->
-            viewModel.intent(LoginContract.Event.OnChangeEmail(email))
-        },
-        onChangeEmailFocus = { isFocused ->
-            viewModel.intent(LoginContract.Event.OnChangeEmailFocus(isFocused))
-        },
-        onClickLoginButton = {
-            viewModel.intent(LoginContract.Event.OnClickLoginButton)
-        }
-    )
-}
-
-@Composable
-fun LoginScreen(
-    inputEmail: String = "",
-    isEmailFocused: Boolean = false,
-    showEmailState: Boolean = false,
-    onChangeEmail: (String) -> Unit = {},
-    onChangeEmailFocus: (Boolean) -> Unit = {},
-    onClickLoginButton: () -> Unit = {},
-) {
-    val focusManager = LocalFocusManager.current
-    
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 24.dp)
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null
-            ) {
-                focusManager.clearFocus()
-            }
-    ) {
-        Column {
-            LoginTopCard()
-            EmailInputComponent(
-                value = inputEmail,
-                onValueChange = onChangeEmail,
-                isFocused = isEmailFocused,
-                onFocusChange = onChangeEmailFocus,
-                showEmailState = showEmailState
+    when (state.currentStep) {
+        UserState.LOGIN_EMAIL, UserState.LOGIN_PASSWORD -> {
+            LoginScreen(
+                showPasswordField = state.currentStep == UserState.LOGIN_PASSWORD,
+                inputEmail = state.loginScreenState.inputEmail,
+                inputPassword = state.loginScreenState.inputPassword,
+                isEmailFocused = state.loginScreenState.isEmailFocused,
+                isPasswordFocused = state.loginScreenState.isPasswordFocused,
+                showEmailState = state.loginScreenState.showEmailState,
+                showPasswordState = state.loginScreenState.showPasswordState,
+                onChangeEmail = { email ->
+                    viewModel.intent(LoginContract.Event.OnChangeEmail(email))
+                },
+                onChangePassword = { password ->
+                    viewModel.intent(LoginContract.Event.OnChangePassword(password))
+                },
+                onChangeEmailFocus = { isFocused ->
+                    viewModel.intent(LoginContract.Event.OnChangeEmailFocus(isFocused))
+                },
+                onChangePasswordFocus = { isFocused ->
+                    viewModel.intent(LoginContract.Event.OnChangePasswordFocus(isFocused))
+                },
+                onClickLoginButton = {
+                    viewModel.intent(LoginContract.Event.OnClickLoginButton)
+                }
             )
-            LoginButtonComponent(
-                isInputEmailEmpty = inputEmail.isEmpty(),
-                onClick = onClickLoginButton
+        }
+        
+        UserState.LOGIN_SIGHUP -> {
+            LoginSignupScreen(
+                inputEmail = state.loginScreenState.inputEmail,
+                isEmailFocused = state.loginScreenState.isEmailFocused,
+                showEmailState = state.loginScreenState.showEmailState,
+                onChangeEmail = { email ->
+                    viewModel.intent(LoginContract.Event.OnChangeEmail(email))
+                },
+                onChangeEmailFocus = { isFocused ->
+                    viewModel.intent(LoginContract.Event.OnChangeEmailFocus(isFocused))
+                },
+                onClickLoginButton = {
+                    viewModel.intent(LoginContract.Event.OnClickLoginButton)
+                }
+            )
+        }
+        
+        UserState.SIGHUP_NAME -> {
+            SignupNameScreen(
+                inputName = state.signupNameState.inputName,
+                isNameFocused = state.signupNameState.isNameFocused,
+                showNameState = state.signupNameState.showNameState,
+                onChangeName = { name ->
+                    viewModel.intent(LoginContract.Event.OnChangeName(name))
+                },
+                onChangeNameFocus = { isFocused ->
+                    viewModel.intent(LoginContract.Event.OnChangeNameFocus(isFocused))
+                },
+                onClickLoginButton = {
+                    viewModel.intent(LoginContract.Event.OnClickLoginButton)
+                },
+                onClickBackButton = {
+                    viewModel.intent(LoginContract.Event.OnClickBackButton)
+                }
+            )
+        }
+        
+        UserState.SIGNUP_PASSWORD -> {
+            SignupPasswordScreen(
+                inputPassword = state.signupPasswordState.inputPassword,
+                isPasswordFocused = state.signupPasswordState.isPasswordFocused,
+                showPasswordState = state.signupPasswordState.showPasswordState,
+                onChangePassword = { password ->
+                    viewModel.intent(LoginContract.Event.OnChangePassword(password))
+                },
+                onChangePasswordFocus = { isFocused ->
+                    viewModel.intent(LoginContract.Event.OnChangePasswordFocus(isFocused))
+                },
+                onClickLoginButton = {
+                    viewModel.intent(LoginContract.Event.OnClickLoginButton)
+                },
+                onClickBackButton = {
+                    viewModel.intent(LoginContract.Event.OnClickBackButton)
+                }
+            )
+        }
+        
+        UserState.SIGNUP_COMPLETE -> {
+            SignupCompleteScreen(
+                onClickLoginButton = {
+                    viewModel.intent(LoginContract.Event.OnClickLoginButton)
+                },
+                onClickBackButton = {
+                    viewModel.intent(LoginContract.Event.OnClickBackButton)
+                }
             )
         }
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
-fun LoginScreenPreview() {
+fun LoginRoutePreview() {
     LoginScreen()
 }
