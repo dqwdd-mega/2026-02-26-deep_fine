@@ -70,6 +70,10 @@ fun LoginRoute(
         }
         
         UserState.LOGIN_SIGHUP -> {
+            BackHandler {
+                viewModel.intent(LoginContract.Event.OnClickBackButton)
+            }
+            
             LoginSignupScreen(
                 inputEmail = state.loginScreenState.inputEmail,
                 isEmailFocused = state.loginScreenState.isEmailFocused,
@@ -131,6 +135,7 @@ fun LoginRoute(
         
         UserState.SIGNUP_COMPLETE -> {
             SignupCompleteScreen(
+                userName = state.signupNameState.inputName,
                 onClickLoginButton = {
                     viewModel.intent(LoginContract.Event.OnClickLoginButton)
                 },

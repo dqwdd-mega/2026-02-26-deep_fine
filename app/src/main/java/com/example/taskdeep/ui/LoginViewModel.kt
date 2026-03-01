@@ -252,7 +252,8 @@ class LoginViewModel @Inject constructor(
                         loginScreenState = loginScreenState.copy(
                             inputPassword = "",
                             isPasswordFocused = false,
-                            showPasswordValidation = false
+                            showPasswordValidation = false,
+                            showEmailValidation = false
                         )
                     )
                 }
