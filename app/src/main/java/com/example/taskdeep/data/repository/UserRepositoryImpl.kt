@@ -2,6 +2,8 @@ package com.example.taskdeep.data.repository
 
 import com.example.taskdeep.data.local.datasource.UserLocalDataSource
 import com.example.taskdeep.domain.model.User
+import com.example.taskdeep.domain.model.exception.AuthException
+import com.example.taskdeep.domain.model.exception.DatabaseException
 import com.example.taskdeep.domain.repository.UserRepository
 import javax.inject.Inject
 
@@ -9,39 +11,36 @@ class UserRepositoryImpl @Inject constructor(
     private val localDataSource: UserLocalDataSource
 ) : UserRepository {
 
-    override suspend fun registerUser(user: User): Result<Unit> {
-        return try {
+    override suspend fun registerUser(user: User) {
+        try {
             localDataSource.saveUser(user)
-            Result.success(Unit)
         } catch (e: Exception) {
-            Result.failure(e)
+            throw DatabaseException.InsertException(cause = e)
         }
     }
 
-    override suspend fun validateEmail(email: String): Result<Unit> {
+    override suspend fun getUserByEmail(email: String): User? {
         return try {
-            val isExists = localDataSource.isUserExists(email)
-            if (isExists) {
-                Result.success(Unit)
-            } else {
-                Result.failure(Exception())
-            }
+            localDataSource.getUserByEmail(email)
         } catch (e: Exception) {
-            Result.failure(e)
+            throw DatabaseException.QueryException(cause = e)
         }
     }
 
-    override suspend fun validatePassword(email: String, password: String): Result<User> {
-        return try {
+    override suspend fun validatePassword(email: String, password: String): User {
+        try {
             val user = localDataSource.getUserByEmail(email)
+                ?: throw AuthException.InvalidPasswordException()
 
-            if (user?.password == password) {
-                Result.success(user)
-            } else {
-                Result.failure(Exception())
+            if (user.password != password) {
+                throw AuthException.InvalidPasswordException()
             }
+
+            return user
+        } catch (e: AuthException) {
+            throw e
         } catch (e: Exception) {
-            Result.failure(e)
+            throw DatabaseException.QueryException(cause = e)
         }
     }
 }

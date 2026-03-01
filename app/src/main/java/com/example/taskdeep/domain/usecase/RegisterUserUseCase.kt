@@ -1,6 +1,7 @@
 package com.example.taskdeep.domain.usecase
 
 import com.example.taskdeep.domain.model.User
+import com.example.taskdeep.domain.model.exception.AuthException
 import com.example.taskdeep.domain.repository.UserRepository
 import javax.inject.Inject
 
@@ -15,18 +16,20 @@ class RegisterUserUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
     suspend operator fun invoke(email: String, password: String, name: String): Result<Unit> {
-        // 비밀번호 최소 길이 검증
-        if (isInvalidPasswordLength(password)) {
-            return Result.failure(Exception("올바른 형식의 비밀번호를 입력해주세요"))
-        }
+        return runCatching {
+            // 비밀번호 최소 길이 검증
+            if (isInvalidPasswordLength(password)) {
+                throw AuthException.InvalidPasswordFormatException()
+            }
 
-        // 비밀번호 조합 검증
-        if (isInvalidPassword(password)) {
-            return Result.failure(Exception("올바른 형식의 비밀번호를 입력해주세요"))
+            // 비밀번호 조합 검증
+            if (isInvalidPassword(password)) {
+                throw AuthException.InvalidPasswordFormatException()
+            }
+            
+            val user = User(email = email, password = password, name = name)
+            userRepository.registerUser(user)
         }
-        
-        val user = User(email = email, password = password, name = name)
-        return userRepository.registerUser(user)
     }
 
 
