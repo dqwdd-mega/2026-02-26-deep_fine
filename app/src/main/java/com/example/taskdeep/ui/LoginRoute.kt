@@ -34,114 +34,140 @@ fun LoginRoute(
         }
     }
 
-    when (state.currentStep) {
+    LoginSignupScreen(
+        currentStep = state.currentStep,
+        inputEmail = state.loginScreenState.inputEmail,
+        inputPassword = state.loginScreenState.inputPassword,
+        isEmailFocused = state.loginScreenState.isEmailFocused,
+        isPasswordFocused = state.loginScreenState.isPasswordFocused,
+        isEmailVerified = state.loginScreenState.isEmailVerified,
+        showEmailValidation = state.loginScreenState.showEmailValidation,
+        showPasswordValidation = state.loginScreenState.showPasswordValidation,
+        inputName = state.signupNameState.inputName,
+        isNameFocused = state.signupNameState.isNameFocused,
+        showNameValidation = state.signupNameState.showNameValidation,
+        signupPassword = state.signupPasswordState.inputPassword,
+        isSignupPasswordFocused = state.signupPasswordState.isPasswordFocused,
+        showSignupPasswordValidation = state.signupPasswordState.showPasswordValidation,
+        onChangeEmail = { email ->
+            viewModel.intent(LoginContract.Event.OnChangeEmail(email))
+        },
+        onChangePassword = { password ->
+            viewModel.intent(LoginContract.Event.OnChangePassword(password))
+        },
+        onChangeName = { name ->
+            viewModel.intent(LoginContract.Event.OnChangeName(name))
+        },
+        onChangeEmailFocus = { isFocused ->
+            viewModel.intent(LoginContract.Event.OnChangeEmailFocus(isFocused))
+        },
+        onChangePasswordFocus = { isFocused ->
+            viewModel.intent(LoginContract.Event.OnChangePasswordFocus(isFocused))
+        },
+        onChangeNameFocus = { isFocused ->
+            viewModel.intent(LoginContract.Event.OnChangeNameFocus(isFocused))
+        },
+        onClickLoginButton = {
+            viewModel.intent(LoginContract.Event.OnClickLoginButton)
+        },
+        onClickBackButton = {
+            viewModel.intent(LoginContract.Event.OnClickBackButton)
+        }
+    )
+}
+
+
+@Composable
+fun LoginSignupScreen(
+    currentStep: UserState,
+    inputEmail: String,
+    inputPassword: String,
+    isEmailFocused: Boolean,
+    isPasswordFocused: Boolean,
+    isEmailVerified: Boolean,
+    showEmailValidation: Boolean,
+    showPasswordValidation: Boolean,
+    inputName: String,
+    isNameFocused: Boolean,
+    showNameValidation: Boolean,
+    signupPassword: String,
+    isSignupPasswordFocused: Boolean,
+    showSignupPasswordValidation: Boolean,
+    onChangeEmail: (String) -> Unit,
+    onChangePassword: (String) -> Unit,
+    onChangeName: (String) -> Unit,
+    onChangeEmailFocus: (Boolean) -> Unit,
+    onChangePasswordFocus: (Boolean) -> Unit,
+    onChangeNameFocus: (Boolean) -> Unit,
+    onClickLoginButton: () -> Unit,
+    onClickBackButton: () -> Unit
+) {
+    when (currentStep) {
         UserState.LOGIN_EMAIL, UserState.LOGIN_PASSWORD -> {
-            if (state.currentStep == UserState.LOGIN_PASSWORD) {
-                BackHandler {
-                    viewModel.intent(LoginContract.Event.OnClickBackButton)
-                }
+            if (currentStep == UserState.LOGIN_PASSWORD) {
+                BackHandler(onBack = onClickBackButton)
             }
-            
+
             LoginScreen(
-                showPasswordField = state.currentStep == UserState.LOGIN_PASSWORD,
-                inputEmail = state.loginScreenState.inputEmail,
-                inputPassword = state.loginScreenState.inputPassword,
-                isEmailFocused = state.loginScreenState.isEmailFocused,
-                isPasswordFocused = state.loginScreenState.isPasswordFocused,
-                isEmailVerified = state.loginScreenState.isEmailVerified,
-                showEmailValidation = state.loginScreenState.showEmailValidation,
-                showPasswordValidation = state.loginScreenState.showPasswordValidation,
-                onChangeEmail = { email ->
-                    viewModel.intent(LoginContract.Event.OnChangeEmail(email))
-                },
-                onChangePassword = { password ->
-                    viewModel.intent(LoginContract.Event.OnChangePassword(password))
-                },
-                onChangeEmailFocus = { isFocused ->
-                    viewModel.intent(LoginContract.Event.OnChangeEmailFocus(isFocused))
-                },
-                onChangePasswordFocus = { isFocused ->
-                    viewModel.intent(LoginContract.Event.OnChangePasswordFocus(isFocused))
-                },
-                onClickLoginButton = {
-                    viewModel.intent(LoginContract.Event.OnClickLoginButton)
-                }
+                showPasswordField = currentStep == UserState.LOGIN_PASSWORD,
+                inputEmail = inputEmail,
+                inputPassword = inputPassword,
+                isEmailFocused = isEmailFocused,
+                isPasswordFocused = isPasswordFocused,
+                isEmailVerified = isEmailVerified,
+                showEmailValidation = showEmailValidation,
+                showPasswordValidation = showPasswordValidation,
+                onChangeEmail = onChangeEmail,
+                onChangePassword = onChangePassword,
+                onChangeEmailFocus = onChangeEmailFocus,
+                onChangePasswordFocus = onChangePasswordFocus,
+                onClickLoginButton = onClickLoginButton
             )
         }
-        
+
         UserState.LOGIN_SIGHUP -> {
-            BackHandler {
-                viewModel.intent(LoginContract.Event.OnClickBackButton)
-            }
-            
+            BackHandler(onBack = onClickBackButton)
+
             LoginSignupScreen(
-                inputEmail = state.loginScreenState.inputEmail,
-                isEmailFocused = state.loginScreenState.isEmailFocused,
-                showEmailValidation = state.loginScreenState.showEmailValidation,
-                onChangeEmail = { email ->
-                    viewModel.intent(LoginContract.Event.OnChangeEmail(email))
-                },
-                onChangeEmailFocus = { isFocused ->
-                    viewModel.intent(LoginContract.Event.OnChangeEmailFocus(isFocused))
-                },
-                onClickLoginButton = {
-                    viewModel.intent(LoginContract.Event.OnClickLoginButton)
-                },
-                onClickBackButton = {
-                    viewModel.intent(LoginContract.Event.OnClickBackButton)
-                }
+                inputEmail = inputEmail,
+                isEmailFocused = isEmailFocused,
+                showEmailValidation = showEmailValidation,
+                onChangeEmail = onChangeEmail,
+                onChangeEmailFocus = onChangeEmailFocus,
+                onClickLoginButton = onClickLoginButton,
+                onClickBackButton = onClickBackButton
             )
         }
-        
+
         UserState.SIGHUP_NAME -> {
             SignupNameScreen(
-                inputName = state.signupNameState.inputName,
-                isNameFocused = state.signupNameState.isNameFocused,
-                showNameValidation = state.signupNameState.showNameValidation,
-                onChangeName = { name ->
-                    viewModel.intent(LoginContract.Event.OnChangeName(name))
-                },
-                onChangeNameFocus = { isFocused ->
-                    viewModel.intent(LoginContract.Event.OnChangeNameFocus(isFocused))
-                },
-                onClickLoginButton = {
-                    viewModel.intent(LoginContract.Event.OnClickLoginButton)
-                },
-                onClickBackButton = {
-                    viewModel.intent(LoginContract.Event.OnClickBackButton)
-                }
+                inputName = inputName,
+                isNameFocused = isNameFocused,
+                showNameValidation = showNameValidation,
+                onChangeName = onChangeName,
+                onChangeNameFocus = onChangeNameFocus,
+                onClickLoginButton = onClickLoginButton,
+                onClickBackButton = onClickBackButton
             )
         }
-        
+
         UserState.SIGNUP_PASSWORD -> {
             SignupPasswordScreen(
-                inputPassword = state.signupPasswordState.inputPassword,
-                isPasswordFocused = state.signupPasswordState.isPasswordFocused,
-                showPasswordValidation = state.signupPasswordState.showPasswordValidation,
-                onChangePassword = { password ->
-                    viewModel.intent(LoginContract.Event.OnChangePassword(password))
-                },
-                onChangePasswordFocus = { isFocused ->
-                    viewModel.intent(LoginContract.Event.OnChangePasswordFocus(isFocused))
-                },
-                onClickLoginButton = {
-                    viewModel.intent(LoginContract.Event.OnClickLoginButton)
-                },
-                onClickBackButton = {
-                    viewModel.intent(LoginContract.Event.OnClickBackButton)
-                }
+                inputPassword = signupPassword,
+                isPasswordFocused = isSignupPasswordFocused,
+                showPasswordValidation = showSignupPasswordValidation,
+                onChangePassword = onChangePassword,
+                onChangePasswordFocus = onChangePasswordFocus,
+                onClickLoginButton = onClickLoginButton,
+                onClickBackButton = onClickBackButton
             )
         }
-        
+
         UserState.SIGNUP_COMPLETE -> {
             SignupCompleteScreen(
-                userName = state.signupNameState.inputName,
-                onClickLoginButton = {
-                    viewModel.intent(LoginContract.Event.OnClickLoginButton)
-                },
-                onClickBackButton = {
-                    viewModel.intent(LoginContract.Event.OnClickBackButton)
-                }
+                userName = inputName,
+                onClickLoginButton = onClickLoginButton,
+                onClickBackButton = onClickBackButton
             )
         }
     }
@@ -150,5 +176,5 @@ fun LoginRoute(
 @Preview(showBackground = true)
 @Composable
 fun LoginRoutePreview() {
-    LoginScreen()
+    LoginSignupScreen()
 }
