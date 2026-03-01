@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.example.taskdeep.R
 import com.example.taskdeep.ui.component.LoginButtonComponent
 import com.example.taskdeep.ui.component.TopCardWithBack
+import com.example.taskdeep.ui.model.UserState
 import com.example.taskdeep.ui.theme.ColorTokens.Black
 import com.example.taskdeep.ui.theme.ColorTokens.Blue_2735AE
 
@@ -56,6 +57,7 @@ fun SignupCompleteScreen(
                 titleAnnotated = titleText,
                 description = "가입하신 회원 정보로 다시 로그인해주세요.",
                 progress = 1f,
+                currentStep = UserState.SIGNUP_COMPLETE,
                 onBackClick = onClickBackButton
             )
             

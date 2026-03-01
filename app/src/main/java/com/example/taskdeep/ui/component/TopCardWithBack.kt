@@ -27,7 +27,10 @@ import com.example.taskdeep.ui.theme.ColorTokens.Blue_2735AE
 import com.example.taskdeep.ui.theme.ColorTokens.Grey_999999
 import com.example.taskdeep.ui.theme.ColorTokens.Grey_EEEEEE
 import com.example.taskdeep.ui.theme.TypoTokens.weight400size15
+import com.example.taskdeep.ui.theme.TypoTokens.weight500size15
+import com.example.taskdeep.ui.theme.TypoTokens.weight700size24
 import com.example.taskdeep.ui.theme.TypoTokens.weight700size30
+import com.example.taskdeep.ui.model.UserState
 
 @Composable
 internal fun TopCardWithBack(
@@ -36,6 +39,7 @@ internal fun TopCardWithBack(
     titleAnnotated: AnnotatedString? = null,
     description: String = "",
     progress: Float = 1f,
+    currentStep: UserState? = null,
     onBackClick: () -> Unit = {},
 ) {
     BackHandler(onBack = onBackClick)
@@ -76,12 +80,20 @@ internal fun TopCardWithBack(
 
         Spacer(modifier = Modifier.height(36.dp))
 
+        val isSignupStep = currentStep in listOf(
+            UserState.SIGHUP_NAME,
+            UserState.SIGNUP_PASSWORD,
+            UserState.SIGNUP_COMPLETE
+        )
+        val titleStyle = if (isSignupStep) weight700size24 else weight700size30
+        val descriptionStyle = if (isSignupStep) weight500size15 else weight400size15
+
         if (titleAnnotated != null) {
             Text(
                 modifier = Modifier
                     .padding(horizontal = 24.dp),
                 text = titleAnnotated,
-                style = weight700size30,
+                style = titleStyle,
                 lineHeight = 30.sp,
                 letterSpacing = (-0.3).sp
             )
@@ -90,7 +102,7 @@ internal fun TopCardWithBack(
                 modifier = Modifier
                     .padding(horizontal = 24.dp),
                 text = title,
-                style = weight700size30,
+                style = titleStyle,
                 color = Black,
                 lineHeight = 30.sp,
                 letterSpacing = (-0.3).sp
@@ -103,7 +115,7 @@ internal fun TopCardWithBack(
             modifier = Modifier
                 .padding(horizontal = 24.dp),
             text = description,
-            style = weight400size15,
+            style = descriptionStyle,
             color = Grey_999999,
             lineHeight = 24.sp,
             letterSpacing = (-0.15).sp

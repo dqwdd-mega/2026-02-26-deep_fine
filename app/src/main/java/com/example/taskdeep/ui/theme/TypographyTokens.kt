@@ -9,9 +9,11 @@ import com.example.taskdeep.R
 
 object FontSizeTokens {
     val textSize30 = 30.sp
+    val textSize24 = 24.sp
     val textSize18 = 18.sp
     val textSize15 = 15.sp
     val textSize13 = 13.sp
+    val textSize12 = 12.sp
 }
 
 object TypoTokens {
@@ -34,6 +36,11 @@ object TypoTokens {
         fontSize = FontSizeTokens.textSize30,
     )
 
+    val weight700size24 = TextStyle(
+        fontWeight = FontWeight.Bold,
+        fontSize = FontSizeTokens.textSize24,
+    )
+
     val weight500size15 = TextStyle(
         fontWeight = FontWeight.Medium,
         fontSize = FontSizeTokens.textSize15,
@@ -47,6 +54,11 @@ object TypoTokens {
     val weight400size15 = TextStyle(
         fontWeight = FontWeight.Normal,
         fontSize = FontSizeTokens.textSize15,
+    )
+
+    val weight400size12 = TextStyle(
+        fontWeight = FontWeight.Normal,
+        fontSize = FontSizeTokens.textSize12,
     )
 
     val weight400size13_notoSansKr = notoSansKrTextStyle.copy(

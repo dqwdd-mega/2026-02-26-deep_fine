@@ -17,6 +17,7 @@ import com.example.taskdeep.R
 import com.example.taskdeep.ui.component.LoginButtonComponent
 import com.example.taskdeep.ui.component.NameInputComponent
 import com.example.taskdeep.ui.component.TopCardWithBack
+import com.example.taskdeep.ui.model.UserState
 
 @Composable
 fun SignupNameScreen(
@@ -45,6 +46,7 @@ fun SignupNameScreen(
                 title = "이름을 입력해주세요",
                 description = "내 정보에서 변경할 수 있어요.",
                 progress = 1f / 3f,
+                currentStep = UserState.SIGHUP_NAME,
                 onBackClick = onClickBackButton
             )
             

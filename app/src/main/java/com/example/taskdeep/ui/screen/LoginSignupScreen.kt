@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import com.example.taskdeep.R
 import com.example.taskdeep.ui.component.EmailInputComponent
 import com.example.taskdeep.ui.component.LoginButtonComponent
-import com.example.taskdeep.ui.component.LoginTopCard
+import com.example.taskdeep.ui.component.SighupTopCard
 import com.example.taskdeep.ui.theme.ColorTokens.Blue_2735AE
 import com.example.taskdeep.ui.theme.TypoTokens.weight500size15
 
@@ -32,7 +32,6 @@ fun LoginSignupScreen(
     onChangeEmail: (String) -> Unit = {},
     onChangeEmailFocus: (Boolean) -> Unit = {},
     onClickLoginButton: () -> Unit = {},
-    onClickBackButton: () -> Unit = {},
 ) {
     val focusManager = LocalFocusManager.current
     
@@ -49,11 +48,10 @@ fun LoginSignupScreen(
         Column(
             modifier = Modifier.padding(horizontal = 24.dp)
         ) {
-            LoginTopCard(
-                isSignupMode = true,
-                showBackButton = false,
-                onBackClick = onClickBackButton
-            )
+            SighupTopCard()
+
+            Spacer(modifier = Modifier.height(74.dp))
+
             EmailInputComponent(
                 value = inputEmail,
                 onValueChange = onChangeEmail,

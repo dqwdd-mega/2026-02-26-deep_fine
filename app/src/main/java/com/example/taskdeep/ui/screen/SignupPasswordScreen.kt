@@ -17,6 +17,7 @@ import com.example.taskdeep.R
 import com.example.taskdeep.ui.component.LoginButtonComponent
 import com.example.taskdeep.ui.component.PasswordInputComponent
 import com.example.taskdeep.ui.component.TopCardWithBack
+import com.example.taskdeep.ui.model.UserState
 
 @Composable
 fun SignupPasswordScreen(
@@ -45,6 +46,7 @@ fun SignupPasswordScreen(
                 title = "비밀번호를 입력해주세요",
                 description = "최소 8자리 이상\n영어 대문자, 소문자, 숫자, 특수 문자 3가지 이상 조합",
                 progress = 2f / 3f,
+                currentStep = UserState.SIGNUP_PASSWORD,
                 onBackClick = onClickBackButton
             )
             

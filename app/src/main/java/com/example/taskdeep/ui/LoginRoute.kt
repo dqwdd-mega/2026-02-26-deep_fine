@@ -134,8 +134,7 @@ fun LoginSignupScreen(
                 showEmailValidation = showEmailValidation,
                 onChangeEmail = onChangeEmail,
                 onChangeEmailFocus = onChangeEmailFocus,
-                onClickLoginButton = onClickLoginButton,
-                onClickBackButton = onClickBackButton
+                onClickLoginButton = onClickLoginButton
             )
         }
 

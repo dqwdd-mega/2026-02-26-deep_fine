@@ -27,9 +27,9 @@ import com.example.taskdeep.ui.theme.ColorTokens.Grey_999999
 import com.example.taskdeep.ui.theme.ColorTokens.Grey_DDDDDD
 import com.example.taskdeep.ui.theme.ColorTokens.Red_EC3D2B
 import com.example.taskdeep.ui.theme.ColorTokens.Red_FF5252
+import com.example.taskdeep.ui.theme.TypoTokens.weight400size12
 import com.example.taskdeep.ui.theme.TypoTokens.weight400size13_notoSansKr
 import com.example.taskdeep.ui.theme.TypoTokens.weight400size18
-import com.example.taskdeep.ui.theme.TypoTokens.weight500size15
 
 @Composable
 internal fun TextInputFieldComponent(
@@ -111,7 +111,7 @@ internal fun TextInputFieldComponent(
         if (showValidationState) {
             Text(
                 text = validationMessage,
-                style = weight500size15,
+                style = weight400size12,
                 color = if (isValidationSuccess) Blue_2735AE else Red_FF5252,
                 lineHeight = 15.sp,
                 letterSpacing = (-0.29).sp
