@@ -1,12 +1,12 @@
-package com.example.taskdeep.ui
+package com.example.login.ui
 
 import com.example.domain.model.EmailValidationResult
 import com.example.domain.model.PasswordValidationResult
 import com.example.domain.usecase.RegisterUserUseCase
 import com.example.domain.usecase.ValidateEmailUseCase
 import com.example.domain.usecase.ValidatePasswordUseCase
-import com.example.taskdeep.base.BaseViewModel
-import com.example.taskdeep.ui.model.UserState
+import com.example.login.base.BaseViewModel
+import com.example.login.ui.model.UserState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject

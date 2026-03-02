@@ -1,4 +1,4 @@
-package com.example.taskdeep.ui.component
+package com.example.login.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -21,15 +21,15 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.taskdeep.ui.theme.ColorTokens.Black
-import com.example.taskdeep.ui.theme.ColorTokens.Blue_2735AE
-import com.example.taskdeep.ui.theme.ColorTokens.Grey_999999
-import com.example.taskdeep.ui.theme.ColorTokens.Grey_DDDDDD
-import com.example.taskdeep.ui.theme.ColorTokens.Red_EC3D2B
-import com.example.taskdeep.ui.theme.ColorTokens.Red_FF5252
-import com.example.taskdeep.ui.theme.TypoTokens.weight400size12
-import com.example.taskdeep.ui.theme.TypoTokens.weight400size13_notoSansKr
-import com.example.taskdeep.ui.theme.TypoTokens.weight400size18
+import com.example.login.ui.theme.ColorTokens.Black
+import com.example.login.ui.theme.ColorTokens.Blue_2735AE
+import com.example.login.ui.theme.ColorTokens.Grey_999999
+import com.example.login.ui.theme.ColorTokens.Grey_DDDDDD
+import com.example.login.ui.theme.ColorTokens.Red_EC3D2B
+import com.example.login.ui.theme.ColorTokens.Red_FF5252
+import com.example.login.ui.theme.TypoTokens.weight400size12
+import com.example.login.ui.theme.TypoTokens.weight400size13_notoSansKr
+import com.example.login.ui.theme.TypoTokens.weight400size18
 
 @Composable
 internal fun TextInputFieldComponent(

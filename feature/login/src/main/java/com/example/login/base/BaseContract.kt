@@ -1,4 +1,4 @@
-package com.example.taskdeep.base
+package com.example.login.base
 
 interface BaseContract {
 

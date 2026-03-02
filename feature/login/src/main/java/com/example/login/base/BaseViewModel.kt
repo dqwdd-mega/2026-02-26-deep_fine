@@ -1,4 +1,4 @@
-package com.example.taskdeep.base
+package com.example.login.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -34,10 +34,8 @@ abstract class BaseViewModel<State : BaseContract.UiState, Event : BaseContract.
     /**
      * 사이드 이펙트 발행
      */
-    protected fun postSideEffect(effect: SideEffect) {
-        viewModelScope.launch {
-            _sideEffect.send(effect)
-        }
+    protected suspend fun postSideEffect(effect: SideEffect) {
+        _sideEffect.send(effect)
     }
 
     /**

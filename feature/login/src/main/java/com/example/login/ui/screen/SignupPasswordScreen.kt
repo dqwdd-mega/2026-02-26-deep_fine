@@ -1,4 +1,4 @@
-package com.example.taskdeep.ui.screen
+package com.example.login.ui.screen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -13,11 +13,11 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taskdeep.R
-import com.example.taskdeep.ui.component.LoginButtonComponent
-import com.example.taskdeep.ui.component.PasswordInputComponent
-import com.example.taskdeep.ui.component.TopCardWithBack
-import com.example.taskdeep.ui.model.UserState
+import com.example.login.R
+import com.example.login.ui.component.LoginButtonComponent
+import com.example.login.ui.component.PasswordInputComponent
+import com.example.login.ui.component.TopCardWithBack
+import com.example.login.ui.model.UserState
 
 @Composable
 fun SignupPasswordScreen(

@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.example.taskdeep.ui.LoginRoute
+import com.example.login.ui.LoginRoute
 import com.example.taskdeep.ui.theme.TaskDeep20260226Theme
 import dagger.hilt.android.AndroidEntryPoint
 

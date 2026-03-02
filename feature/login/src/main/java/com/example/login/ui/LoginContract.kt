@@ -1,7 +1,7 @@
-package com.example.taskdeep.ui
+package com.example.login.ui
 
-import com.example.taskdeep.base.BaseContract
-import com.example.taskdeep.ui.model.UserState
+import com.example.login.base.BaseContract
+import com.example.login.ui.model.UserState
 
 object LoginContract {
 

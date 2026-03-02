@@ -60,6 +60,7 @@ dependencies {
 
     implementation(project(":core:domain"))
     implementation(project(":core:data"))
+    implementation(project(":feature:login"))
 
     // hilt
     implementation(libs.hilt)

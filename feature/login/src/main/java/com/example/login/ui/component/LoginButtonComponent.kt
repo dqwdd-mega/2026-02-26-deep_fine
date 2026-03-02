@@ -1,4 +1,4 @@
-package com.example.taskdeep.ui.component
+package com.example.login.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,11 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.taskdeep.ui.theme.ColorTokens.Blue_2735AE
-import com.example.taskdeep.ui.theme.ColorTokens.Grey_C2C3CA
-import com.example.taskdeep.ui.theme.ColorTokens.White
-import com.example.taskdeep.ui.theme.Radius.Round12
-import com.example.taskdeep.ui.theme.TypoTokens.weight400size18
+import com.example.login.ui.theme.ColorTokens.Blue_2735AE
+import com.example.login.ui.theme.ColorTokens.Grey_C2C3CA
+import com.example.login.ui.theme.ColorTokens.White
+import com.example.login.ui.theme.Radius.Round12
+import com.example.login.ui.theme.TypoTokens.weight400size18
 
 @Composable
 internal fun LoginButtonComponent(

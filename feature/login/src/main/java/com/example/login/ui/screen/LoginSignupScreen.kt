@@ -1,4 +1,4 @@
-package com.example.taskdeep.ui.screen
+package com.example.login.ui.screen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -15,46 +16,28 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taskdeep.R
-import com.example.taskdeep.ui.component.EmailInputComponent
-import com.example.taskdeep.ui.component.LoginButtonComponent
-import com.example.taskdeep.ui.component.LoginTopCard
-import com.example.taskdeep.ui.component.PasswordInputComponent
+import androidx.compose.ui.unit.sp
+import com.example.login.R
+import com.example.login.ui.component.EmailInputComponent
+import com.example.login.ui.component.LoginButtonComponent
+import com.example.login.ui.component.SighupTopCard
+import com.example.login.ui.theme.ColorTokens.Blue_2735AE
+import com.example.login.ui.theme.TypoTokens.weight500size15
 
 @Composable
-fun LoginScreen(
-    showPasswordField: Boolean = false,
+fun LoginSignupScreen(
     inputEmail: String = "",
-    inputPassword: String = "",
     isEmailFocused: Boolean = false,
-    isPasswordFocused: Boolean = false,
-    isEmailVerified: Boolean = false,
     showEmailValidation: Boolean = false,
-    showPasswordValidation: Boolean = false,
     onChangeEmail: (String) -> Unit = {},
-    onChangePassword: (String) -> Unit = {},
     onChangeEmailFocus: (Boolean) -> Unit = {},
-    onChangePasswordFocus: (Boolean) -> Unit = {},
     onClickLoginButton: () -> Unit = {},
 ) {
     val focusManager = LocalFocusManager.current
     
-    val buttonText = if (showPasswordField) {
-        stringResource(R.string.login)
-    } else {
-        stringResource(R.string.login_signup)
-    }
-    
-    val buttonEnabled = if (showPasswordField) {
-        inputPassword.isNotEmpty()
-    } else {
-        inputEmail.isNotEmpty()
-    }
-    
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 24.dp)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null
@@ -62,32 +45,35 @@ fun LoginScreen(
                 focusManager.clearFocus()
             }
     ) {
-        Column {
-            LoginTopCard()
+        Column(
+            modifier = Modifier.padding(horizontal = 24.dp)
+        ) {
+            SighupTopCard()
+
+            Spacer(modifier = Modifier.height(74.dp))
+
             EmailInputComponent(
                 value = inputEmail,
                 onValueChange = onChangeEmail,
                 isFocused = isEmailFocused,
                 onFocusChange = onChangeEmailFocus,
-                isEmailVerified = isEmailVerified,
+                isEmailVerified = false,
                 showEmailValidation = showEmailValidation
             )
             
-            if (showPasswordField) {
-                Spacer(modifier = Modifier.height(24.dp))
-                
-                PasswordInputComponent(
-                    value = inputPassword,
-                    onValueChange = onChangePassword,
-                    isFocused = isPasswordFocused,
-                    onFocusChange = onChangePasswordFocus,
-                    showPasswordValidation = showPasswordValidation
-                )
-            }
+            Spacer(modifier = Modifier.height(6.dp))
+            
+            Text(
+                text = stringResource(R.string.no_login_info),
+                style = weight500size15,
+                color = Blue_2735AE,
+                lineHeight = 15.sp,
+                letterSpacing = (-0.29).sp
+            )
             
             LoginButtonComponent(
-                buttonText = buttonText,
-                isEnabled = buttonEnabled,
+                buttonText = stringResource(R.string.next),
+                isEnabled = true,
                 onClick = onClickLoginButton
             )
         }
@@ -96,12 +82,6 @@ fun LoginScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun LoginScreenPreview() {
-    LoginScreen()
-}
-
-@Preview(showBackground = true)
-@Composable
-fun LoginScreenWithPasswordPreview() {
-    LoginScreen(showPasswordField = true)
+fun LoginSignupScreenPreview() {
+    LoginSignupScreen()
 }

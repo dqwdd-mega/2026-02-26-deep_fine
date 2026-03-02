@@ -1,4 +1,4 @@
-package com.example.taskdeep.ui
+package com.example.login.ui
 
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
@@ -9,12 +9,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.taskdeep.ui.model.UserState
-import com.example.taskdeep.ui.screen.LoginScreen
-import com.example.taskdeep.ui.screen.LoginSignupScreen
-import com.example.taskdeep.ui.screen.SignupCompleteScreen
-import com.example.taskdeep.ui.screen.SignupNameScreen
-import com.example.taskdeep.ui.screen.SignupPasswordScreen
+import com.example.login.ui.model.UserState
+import com.example.login.ui.screen.LoginScreen
+import com.example.login.ui.screen.LoginSignupScreen
+import com.example.login.ui.screen.SignupCompleteScreen
+import com.example.login.ui.screen.SignupNameScreen
+import com.example.login.ui.screen.SignupPasswordScreen
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -34,7 +34,7 @@ fun LoginRoute(
         }
     }
 
-    LoginSignupScreen(
+    LoginSignupScreenContainer(
         currentStep = state.currentStep,
         inputEmail = state.loginScreenState.inputEmail,
         inputPassword = state.loginScreenState.inputPassword,
@@ -78,7 +78,7 @@ fun LoginRoute(
 
 
 @Composable
-fun LoginSignupScreen(
+fun LoginSignupScreenContainer(
     currentStep: UserState,
     inputEmail: String,
     inputPassword: String,
@@ -175,5 +175,28 @@ fun LoginSignupScreen(
 @Preview(showBackground = true)
 @Composable
 fun LoginRoutePreview() {
-    LoginSignupScreen()
+    LoginSignupScreenContainer(
+        currentStep = UserState.LOGIN_EMAIL,
+        inputEmail = "",
+        inputPassword = "",
+        isEmailFocused = false,
+        isPasswordFocused = false,
+        isEmailVerified = false,
+        showEmailValidation = false,
+        showPasswordValidation = false,
+        inputName = "",
+        isNameFocused = false,
+        showNameValidation = false,
+        signupPassword = "",
+        isSignupPasswordFocused = false,
+        showSignupPasswordValidation = false,
+        onChangeEmail = {},
+        onChangePassword = {},
+        onChangeName = {},
+        onChangeEmailFocus = {},
+        onChangePasswordFocus = {},
+        onChangeNameFocus = {},
+        onClickLoginButton = {},
+        onClickBackButton = {}
+    )
 }

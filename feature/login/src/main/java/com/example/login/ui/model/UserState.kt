@@ -1,4 +1,4 @@
-package com.example.taskdeep.ui.model
+package com.example.login.ui.model
 
 enum class UserState {
     LOGIN_EMAIL,

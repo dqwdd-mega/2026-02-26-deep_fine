@@ -1,10 +1,10 @@
-package com.example.taskdeep.ui.component
+package com.example.login.ui.component
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.taskdeep.R
+import com.example.login.R
 
 @Composable
 internal fun NameInputComponent(

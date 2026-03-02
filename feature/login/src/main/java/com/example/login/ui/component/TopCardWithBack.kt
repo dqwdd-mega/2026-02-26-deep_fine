@@ -1,36 +1,33 @@
-package com.example.taskdeep.ui.component
+package com.example.login.ui.component
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.taskdeep.R
-import com.example.taskdeep.ui.theme.ColorTokens.Black
-import com.example.taskdeep.ui.theme.ColorTokens.Blue_2735AE
-import com.example.taskdeep.ui.theme.ColorTokens.Grey_999999
-import com.example.taskdeep.ui.theme.ColorTokens.Grey_EEEEEE
-import com.example.taskdeep.ui.theme.TypoTokens.weight400size15
-import com.example.taskdeep.ui.theme.TypoTokens.weight500size15
-import com.example.taskdeep.ui.theme.TypoTokens.weight700size24
-import com.example.taskdeep.ui.theme.TypoTokens.weight700size30
-import com.example.taskdeep.ui.model.UserState
+import com.example.login.R
+import com.example.login.ui.model.UserState
+import com.example.login.ui.theme.ColorTokens.Black
+import com.example.login.ui.theme.ColorTokens.Blue_2735AE
+import com.example.login.ui.theme.ColorTokens.Grey_999999
+import com.example.login.ui.theme.ColorTokens.Grey_EEEEEE
+import com.example.login.ui.theme.TypoTokens.weight400size15
+import com.example.login.ui.theme.TypoTokens.weight500size15
+import com.example.login.ui.theme.TypoTokens.weight700size24
+import com.example.login.ui.theme.TypoTokens.weight700size30
 
 @Composable
 internal fun TopCardWithBack(
