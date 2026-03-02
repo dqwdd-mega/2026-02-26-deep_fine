@@ -281,6 +281,11 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun isValidEmail(email: String): Boolean {
-        return email.contains("@") && email.indexOf("@") > 0 && email.indexOf("@") < email.length - 1
+        if ('@' !in email) return false
+        if (email.indexOf("@") == 0) return false
+        if (email.indexOf("@") >= email.length - 1) return false
+        
+        val domainPart = email.substringAfter("@")
+        return domainPart.contains(".") && domainPart.lastIndexOf(".") < domainPart.length - 2
     }
 }
