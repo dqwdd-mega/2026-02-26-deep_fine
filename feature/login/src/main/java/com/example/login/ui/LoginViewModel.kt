@@ -224,7 +224,25 @@ class LoginViewModel @Inject constructor(
             updateSignupPasswordState { copy(showPasswordValidation = true) }
             return
         }
+
+        val isInvalidPasswordLength = inputPassword.length < 8
+        if (isInvalidPasswordLength || isInvalidPassword(inputPassword)) {
+            updateSignupPasswordState { copy(showPasswordValidation = true) }
+            return
+        }
+        
         updateCurrentStep(UserState.SIGNUP_COMPLETE)
+    }
+    
+    private fun isInvalidPassword(password: String): Boolean {
+        val hasUpperCase = password.any { it.isUpperCase() }
+        val hasLowerCase = password.any { it.isLowerCase() }
+        val hasDigit = password.any { it.isDigit() }
+        val hasSpecialChar = password.any { it.isLetterOrDigit().not() }
+        
+        val conditionCount = listOf(hasUpperCase, hasLowerCase, hasDigit, hasSpecialChar).count { it }
+        
+        return conditionCount < 3
     }
 
     private suspend fun handleSignupCompleteState() {
